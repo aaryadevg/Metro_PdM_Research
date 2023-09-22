@@ -1,0 +1,40 @@
+\documentclass{article}
+
+\title{Project Overview and Brief Litreature Review}
+\author{Aaryadev Ghosalkar}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Metro System Failure Prediction}
+
+\section*{Overview}
+
+This project aims to develop a predictive model for detecting and predicting failures in a metro transportation system. The project leverages machine learning and data analysis techniques to enhance the system's reliability and safety as well as providing a framework to deploy these models into production.
+
+\section*{Literature Review}
+
+The initial phase of data extraction, along with the comprehensive delineation
+of the task and the methodology employed for data acquisition, encompassing the
+data format obtained from all sensors installed within the metro system, was
+undertaken by the work conducted by \cite{Veloso2022}. In their work,
+\cite{Veloso2022} expounded upon the operational principles of diverse sensors
+and articulated the central objective of predicting metro system failures. 
+Moreover, \cite{Veloso2022} explained the precise criteria stipulated by the railway company for the assessment of the predictive model, thus serving as an instrumental starting point for the subsequent research endeavor. \\
+
+Another comparison was done by \cite{Davari2021} which explores contemporary approaches to address this issue. It underscores the need for Deep Learning (DL) due to the development of advanced sensors generating substantial data, making traditional Machine Learning (ML) methods inadequate for modern Predictive Maintenance (PdM) challenges. Common methods discussed including Artificial Neural Networks (ANN) for binary classification of system failure, Convolutional Neural Networks (CNN) for transforming 1D time series data into images and using image classification for failure prediction. Recurrent Neural Networks (RNN), particularly Long Short-Term Memory (LSTM) networks, suitable for both regression and classification in PdM. \\
+
+The AzureML team at Microsoft \cite{AzureML2015} introduced data preparation techniques for Predictive Maintenance (PdM). They addressed three key PdM tasks: binary classification, multiclass classification, and regression, the latter also referred to as Remaining Useful Life (RUL) prediction. \\
+
+The application of Convolution Neural Networks (CNN) to time series data, typically used for
+images, requires a method for converting time series into image-like representations. 
+Reference \cite{Silva2019} introduced the concept of GAF (Gramian Angular Field) feature 
+transformation, which facilitates the conversion of one-dimensional time series data into images. Leveraging this transformation, they achieved an impressive accuracy rate of 93\% on the SF103 dataset.
+
+
+\bibliographystyle{IEEEtran}
+\bibliography{metropt}
+
+\end{document}
