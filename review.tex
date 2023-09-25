@@ -1,6 +1,6 @@
 \documentclass{article}
 
-\title{Project Overview and Brief Litreature Review}
+\title{Metro Systems Failure Prediction}
 \author{Aaryadev Ghosalkar}
 \date{\today}
 
@@ -8,31 +8,45 @@
 
 \maketitle
 
-\section{Metro System Failure Prediction}
+\begin{abstract}
+Predictive maintenance is vital for ensuring the reliable operation of metro transportation systems, enhancing passenger safety, and minimizing service disruptions. In this research, we focus on the challenging task of predicting metro system failures at least two hours in advance. Our study encompasses a comprehensive comparison of various machine learning models, including Support Vector Machines (SVM), Convolutional Neural Networks (CNN), Long Short-Term Memory (LSTM) networks, and transformer-based models. These models are evaluated for their performance in predicting impending failures, providing valuable insights into their applicability in this context.
 
-\section*{Overview}
+Additionally, we introduce a practical demonstration of a web API designed for model deployment in real-world metro system environments. This API serves as a testament to the feasibility of deploying predictive maintenance models in production settings.
 
-This project aims to develop a predictive model for detecting and predicting failures in a metro transportation system. The project leverages machine learning and data analysis techniques to enhance the system's reliability and safety as well as providing a framework to deploy these models into production.
+It is important to note that while our research offers valuable insights into model performance and deployment readiness, we refrain from proposing a final production model. This limitation arises from the complex domain knowledge required for selecting an optimal model. Nevertheless, our findings contribute to the ongoing efforts to bolster metro system reliability and safety through proactive failure prediction. \\
+
+\textbf{Keywords:} Metro system, predictive maintenance, failure prediction, machine learning, deep learning, model comparison, model deployment, reliability, safety.
+\end{abstract}
+
+\newpage
 
 \section*{Literature Review}
 
 The initial phase of data extraction, along with the comprehensive delineation
 of the task and the methodology employed for data acquisition, encompassing the
 data format obtained from all sensors installed within the metro system, was
-undertaken by the work conducted by \cite{Veloso2022}. In their work,
-\cite{Veloso2022} expounded upon the operational principles of diverse sensors
+undertaken by the work conducted by Veloloso et al \cite{Veloso2022}. In their work they expounded upon the operational principles of diverse sensors
 and articulated the central objective of predicting metro system failures. 
-Moreover, \cite{Veloso2022} explained the precise criteria stipulated by the railway company for the assessment of the predictive model, thus serving as an instrumental starting point for the subsequent research endeavor. \\
+Moreover, they explained the precise criteria stipulated by the railway company for the assessment of the predictive model, thus serving as an instrumental starting point for the subsequent research endeavor. \\
 
-Another comparison was done by \cite{Davari2021} which explores contemporary approaches to address this issue. It underscores the need for Deep Learning (DL) due to the development of advanced sensors generating substantial data, making traditional Machine Learning (ML) methods inadequate for modern Predictive Maintenance (PdM) challenges. Common methods discussed including Artificial Neural Networks (ANN) for binary classification of system failure, Convolutional Neural Networks (CNN) for transforming 1D time series data into images and using image classification for failure prediction. Recurrent Neural Networks (RNN), particularly Long Short-Term Memory (LSTM) networks, suitable for both regression and classification in PdM. \\
+In alignment with the findings of Azure ML Team at Microsoft \cite{AzureML2015}, there exist two primary approaches to tackle our problem: binary classification or failure prediction, where the objective is to predict whether the metro system will fail within the next two hours (yes or no), and regression, which in the context of our research pertains to predicting the number of cycles before the metro system experiences a failure also known as Remaining Useful life (RUL) Prediction. This paper will undertake a comparative analysis of both these approaches. \\
 
-The AzureML team at Microsoft \cite{AzureML2015} introduced data preparation techniques for Predictive Maintenance (PdM). They addressed three key PdM tasks: binary classification, multiclass classification, and regression, the latter also referred to as Remaining Useful Life (RUL) prediction. \\
+Davari et al \cite{Davari2021} have conducted a survey on data-driven or Machine Learning (ML) and Deep Learning (DL) approaches to PdM. In their work they have compared both approaches to us.
 
-The application of Convolution Neural Networks (CNN) to time series data, typically used for
-images, requires a method for converting time series into image-like representations. 
-Reference \cite{Silva2019} introduced the concept of GAF (Gramian Angular Field) feature 
-transformation, which facilitates the conversion of one-dimensional time series data into images. Leveraging this transformation, they achieved an impressive accuracy rate of 93\% on the SF103 dataset.
+\subsection*{Failure Prediction}
 
+Numerous traditional ML algorithms are applied in the realm of failure prediction. As detailed in \cite{chaudhuri2018}, Support Vector Machines (SVM) and various SVM variants were employed to classify vehicles into three distinct risk categories: Immediate, Long-term, and Medium-term. \\
+
+Convolution Neural Networks (CNN) can be applied to time series data, typically used for
+images, requires a method for converting time series into image-like representations such as GAF (Gramian Angular Field) feature transformation, which facilitates the conversion of one-dimensional time series data into images. Leveraging this transformation for PdM Silva reported an accuracy rate of 93\% on the SF103 dataset \cite{Silva2019}. \\
+
+Long Short-Term Memory (LSTM) networks have gained prominence for failure prediction. Nguyen and Medjaher employed LSTM to predict failures by quantifying the probability of system failure within a specified time window \cite{nguyen2019}. This approach holds promise for our problem, as it not only offers the potential for interpretability but also grants flexibility to the company in defining the severity thresholds for failure prediction.
+
+\subsection*{Remaining Useful Life Estimation}
+
+An alternative perspective on the problem involves estimating the Remaining Useful Life (RUL), which offers a versatile approach. This approach allows for the setting of thresholds to define significant risk levels or monitoring specific variables that serve as reliable indicators of system deterioration. Wang et al. addressed this aspect by comparing Deep Neural Networks (DNN) and Shallow Neural Networks (SNN) in predicting lubricant pressure for wind turbines within a farm \cite{wang2016}. It's worth noting that selecting the appropriate variable for monitoring often requires domain expertise. In our study, we will compute the time to failure based on the actual failure dates provided, thus circumventing the need for domain-specific knowledge in variable selection. \\
+
+\newpage
 
 \bibliographystyle{IEEEtran}
 \bibliography{metropt}
