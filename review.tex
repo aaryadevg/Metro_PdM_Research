@@ -9,42 +9,46 @@
 \maketitle
 
 \begin{abstract}
-Predictive maintenance is vital for ensuring the reliable operation of metro transportation systems, enhancing passenger safety, and minimizing service disruptions. In this research, we focus on the challenging task of predicting metro system failures at least two hours in advance. Our study encompasses a comprehensive comparison of various machine learning models, including Support Vector Machines (SVM), Convolutional Neural Networks (CNN), Long Short-Term Memory (LSTM) networks, and transformer-based models. These models are evaluated for their performance in predicting impending failures, providing valuable insights into their applicability in this context.
+Predictive maintenance is vital for ensuring the reliable operation of metro transportation systems, enhancing passenger safety, and minimizing service disruptions. In this research, we focus on the challenging task of predicting metro system failures at least two hours in advance. Our study encompasses a comprehensive comparison of various machine learning models, including Support Vector Machines (SVM), Convolutional Neural Networks (CNN), Long Short-Term Memory (LSTM) networks, and transformer-based models. These models are evaluated for their performance in predicting impending failures using various metrics such as accuracy, precision, recall and F1-Score for classification and Mean Squared Error (MSE) for Regression, providing valuable insights into their applicability in this context.
 
-Additionally, we introduce a practical demonstration of a web API designed for model deployment in real-world metro system environments. This API serves as a testament to the feasibility of deploying predictive maintenance models in production settings.
+Additionally, we introduce a practical demonstration of a web API designed to model real-world metro system environments. This API serves as a testament to the feasibility of deploying predictive maintenance models in production settings.
 
-It is important to note that while our research offers valuable insights into model performance and deployment readiness, we refrain from proposing a final production model. This limitation arises from the complex domain knowledge required for selecting an optimal model. Nevertheless, our findings contribute to the ongoing efforts to bolster metro system reliability and safety through proactive failure prediction. \\
+It is important to note that while our research offers valuable insights into model performance and deployment readiness, we refrain from proposing a final production model. This limitation arises from the complex domain knowledge required for selecting an optimal model and the to keep the paper more general since the requirements of various transportation companies need not be the same. Nevertheless, our findings contribute to the ongoing efforts to bolster metro system reliability and safety through proactive failure prediction. \\
 
-\textbf{Keywords:} Metro system, predictive maintenance, failure prediction, machine learning, deep learning, model comparison, model deployment, reliability, safety.
+\textbf{Keywords:} Metro system, predictive maintenance, failure prediction, machine learning, deep learning, model deployment.
 \end{abstract}
 
 \newpage
 
 \section*{Literature Review}
 
-The initial phase of data extraction, along with the comprehensive delineation
-of the task and the methodology employed for data acquisition, encompassing the
-data format obtained from all sensors installed within the metro system, was
+The initial phase of data extraction was
 undertaken by the work conducted by Veloloso et al \cite{Veloso2022}. In their work they expounded upon the operational principles of diverse sensors
 and articulated the central objective of predicting metro system failures. 
 Moreover, they explained the precise criteria stipulated by the railway company for the assessment of the predictive model, thus serving as an instrumental starting point for the subsequent research endeavor. \\
 
-In alignment with the findings of Azure ML Team at Microsoft \cite{AzureML2015}, there exist two primary approaches to tackle our problem: binary classification or failure prediction, where the objective is to predict whether the metro system will fail within the next two hours (yes or no), and regression, which in the context of our research pertains to predicting the number of cycles before the metro system experiences a failure also known as Remaining Useful life (RUL) Prediction. This paper will undertake a comparative analysis of both these approaches. \\
+The findings of Azure ML Team at Microsoft \cite{AzureML2015}, show that there exist two primary approaches to tackle our problem: binary classification or failure prediction, where the objective is to predict whether the metro system will fail within the next two hours (yes or no), and regression, which in the context of our research pertains to predicting the number of cycles or amount of time before the metro system experiences a failure, or needs to be repaired. Also known as Remaining Useful life (RUL) Prediction. This paper will undertake a comparative analysis of both these approaches. \\
 
-Davari et al \cite{Davari2021} have conducted a survey on data-driven or Machine Learning (ML) and Deep Learning (DL) approaches to PdM. In their work they have compared both approaches to us.
+Davari et al \cite{Davari2021} have conducted a survey on data-driven or Machine Learning (ML) and Deep Learning (DL) approaches to PdM. In their work they have compared both approaches to we will expand on this by providing more insight into which approaches are viable in the context for metro systems.
 
 \subsection*{Failure Prediction}
 
-Numerous traditional ML algorithms are applied in the realm of failure prediction. As detailed in \cite{chaudhuri2018}, Support Vector Machines (SVM) and various SVM variants were employed to classify vehicles into three distinct risk categories: Immediate, Long-term, and Medium-term. \\
+Numerous traditional ML algorithms are applied in the realm of failure prediction. As detailed in the works of Chaudhuri et al \cite{chaudhuri2018}, where Support Vector Machines (SVM) and various SVM variants were employed to classify vehicles into three distinct risk categories: Immediate, Long-term, and Medium-term. This approach is simple and the results are easy to understand. \\
 
 Convolution Neural Networks (CNN) can be applied to time series data, typically used for
-images, requires a method for converting time series into image-like representations such as GAF (Gramian Angular Field) feature transformation, which facilitates the conversion of one-dimensional time series data into images. Leveraging this transformation for PdM Silva reported an accuracy rate of 93\% on the SF103 dataset \cite{Silva2019}. \\
+images, requires a method for converting time series into image-like representations using GAF (Gramian Angular Field) feature transformation, which facilitates the conversion of one-dimensional time series data into images. Leveraging this transformation for PdM Silva reported an accuracy rate of 93\% on the SF103 dataset \cite{Silva2019}. \\
 
 Long Short-Term Memory (LSTM) networks have gained prominence for failure prediction. Nguyen and Medjaher employed LSTM to predict failures by quantifying the probability of system failure within a specified time window \cite{nguyen2019}. This approach holds promise for our problem, as it not only offers the potential for interpretability but also grants flexibility to the company in defining the severity thresholds for failure prediction.
 
 \subsection*{Remaining Useful Life Estimation}
 
-An alternative perspective on the problem involves estimating the Remaining Useful Life (RUL), which offers a versatile approach. This approach allows for the setting of thresholds to define significant risk levels or monitoring specific variables that serve as reliable indicators of system deterioration. Wang et al. addressed this aspect by comparing Deep Neural Networks (DNN) and Shallow Neural Networks (SNN) in predicting lubricant pressure for wind turbines within a farm \cite{wang2016}. It's worth noting that selecting the appropriate variable for monitoring often requires domain expertise. In our study, we will compute the time to failure based on the actual failure dates provided, thus circumventing the need for domain-specific knowledge in variable selection. \\
+An alternative perspective on the problem involves estimating the Remaining Useful Life (RUL), which offers a versatile approach. This approach allows for the setting of thresholds to define significant risk levels based on the transportation companies needs this is usually done by monitoring specific variables that serve as reliable indicators of system deterioration however this approach requires domain knowledge about the features that can be used to predict the degradation of the system, due to this limitation we will be calculating the time to failure, the number of hours before failure based on the known failures. \\
+
+Prior to 2011, a significant portion of research in Remaining Useful Life (RUL) prediction predominantly relied on statistical methods. Si et al.'s study exemplifies the utilization of various statistical techniques that were commonly employed, including linear regression and probabilistic models such as Markov models, in the context of RUL prediction \cite{SI2011}. \\
+
+In 2016 with the rise of Deep Learning, Wang et al. compared a more data driven approach such as Deep Neural Networks (DNN) and Shallow Neural Networks (SNN) in predicting lubricant pressure for wind turbines within a farm \cite{wang2016}. It's worth noting that selecting the appropriate variable for monitoring often requires domain expertise.As mention earlierwe will take a slightly different approach in our study thus circumventing the need for domain-specific knowledge in variable selection. \\
+
+Several models originally designed for failure prediction have found applicability in RUL estimation. For instance, Boujamza and Elhaq explored the utilization of an attention-based LSTM model for RUL estimation using the C-MAPSS Dataset \cite{Boujamza2022}. This adaptation suggests the possibility of exploring other attention-based models, such as transformers, for similar tasks in RUL estimation, expanding the scope of potential approaches for our research.
 
 \newpage
 
