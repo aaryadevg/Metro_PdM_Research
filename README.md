@@ -5,9 +5,10 @@ LaTex source to keep track of the paper in iterations
 
 #TODO
 
-[] Find Papers on LSTM for PdM
-[] Finish Review
-[] Select algos to compare
+[x] Find Papers on LSTM for PdM
+[x] Finish Review
+[x] Select algos to compare
+[] Write about the Dataset and Perform EDA
 [] Implement Algorithms
 [] Test on Dataset (Eval)
 [] Try RUL Approach
