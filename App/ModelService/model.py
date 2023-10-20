@@ -3,8 +3,25 @@ from pydantic import BaseModel
 import os
 from datetime import datetime
 
+class ModelPrediction(BaseModel):
+    """
+    ModelPrediction is a data model representing the prediction result for a single input.
 
-class Model_Meta(BaseModel):
+    ## Attributes:
+    - predicted_label (int): The predicted label or class for the input.
+    - predicted_class (str): The predicted class name.
+    - raw_out (list[float]): The raw output values.
+    - probabilities (list[float]): The class probabilities calculated using the Softmax function.
+    - confidence (float): The highest probability among the class probabilities.
+    """
+    predicted_label: int
+    predicted_class: str
+    raw_out: list[float]
+    probabilities: list[float]
+    confidence: float
+
+
+class ModelMeta(BaseModel):
     """
     ## About
     Model_Meta is a Pydantic data model to store metadata related to the classification model used by this API.
@@ -42,7 +59,7 @@ def _calc_param(model: torch.nn.Module) -> int:
     return sum(map(lambda x: x.numel(), model.parameters()))
 
 
-def load_model(path: str) -> tuple[torch.nn.Module, Model_Meta]:
+def load_model(path: str) -> tuple[torch.nn.Module, ModelMeta]:
     location = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     state = torch.load(path, map_location=location)
 
@@ -50,7 +67,7 @@ def load_model(path: str) -> tuple[torch.nn.Module, Model_Meta]:
     model.load_state_dict(state)
     model.eval()
 
-    meta = Model_Meta(
+    meta = ModelMeta(
         name=type(model).__name__,
         created_date=datetime.fromtimestamp(os.path.getctime(path)),
         n_params=_calc_param(model),
