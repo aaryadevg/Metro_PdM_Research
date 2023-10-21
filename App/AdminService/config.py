@@ -1,0 +1,3 @@
+SECRET_KEY = "ADMIN-APP"
+SQLALCHEMY_DATABASE_URI = "sqlite:///AdminDB.sqlite"  # SQLite database file
+SQLALCHEMY_TRACK_MODIFICATIONS = False
