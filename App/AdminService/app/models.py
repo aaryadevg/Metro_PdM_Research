@@ -26,6 +26,8 @@ class SensorData(db.Model):
     pred_label = db.Column(db.Integer)
     pred_class = db.Column(db.String(20))
     confidence = db.Column(db.Float)
+    
+    actual_label = db.Column(db.Integer, default=0) # Zero for normal
 
     def __repr__(self):
         return f'<SensorData id={self.id}>'
