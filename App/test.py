@@ -11,5 +11,9 @@ df = df.drop(columns=["timestamp", "Target"])
 # print(r.status_code)
 # print(r.json())
 test_data = df.iloc[1].to_dict()
+r = requests.post("http://127.0.0.1:5000/sensor_data", json=test_data)
+
+print(r.status_code)
+print(r.text)
 
 print(test_data)

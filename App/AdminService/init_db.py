@@ -1,5 +1,5 @@
 from app import app, db
-from app.models import Admin
+from app.models import Admin, SensorData
 
 with app.app_context():
     db.create_all()
