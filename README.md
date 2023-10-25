@@ -8,13 +8,19 @@ LaTeX source to keep track of the paper in iterations
 - [x] Find Papers on LSTM for PdM
 - [x] Finish Review
 - [x] Select algorithms to compare
-- [ ] Write about the Dataset and Perform EDA
-- [ ] Implement Algorithms
-- [ ] Test on Dataset (Evaluation)
+- [x] Write about the Dataset and Perform EDA
+- [x] Make Presentation for DOT internal
+- [x] Balance dataset
+- [x] Implement Algorithms (SVM, Decision Tree, Random Forest, Neural Net, LSTM)
+- [x] Test on Dataset (Evaluation)
+- [x] Select an Approach for API (Chose a Micro service architecture)
+- [x] Build API
+- [-] Build Admin app
+  - [x] Display data in table
+  - [x] Search
+  - [x] Sort
+  - [ ] Form to Mark Failure 
 - [ ] Try RUL Approach
 - [ ] Evaluate RUL
-- [ ] Select an Approach for API
-- [ ] Build API
 - [ ] Finish Off Paper
 - [ ] Finish Log Book
-- [ ] Make Presentation
