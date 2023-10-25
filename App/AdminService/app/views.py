@@ -7,10 +7,17 @@ from flask_login import login_user, login_required, logout_user, current_user
 from app.forms import LoginForm, SignupForm
 import requests
 
+def toDict(keys, values):
+    stringified = map(str, values)
+    return dict(zip(keys, stringified))
+    
+
+
 @app.route('/')
 @login_required
 def index():
-    return "Welcome"
+    sensor_data = SensorData.query.all()
+    return render_template('admin.html', sensor_data=sensor_data)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
