@@ -15,7 +15,7 @@ LaTeX source to keep track of the paper in iterations
 - [x] Test on Dataset (Evaluation)
 - [x] Select an Approach for API (Chose a Micro service architecture)
 - [x] Build API
-- [-] Build Admin app
+- [x] Build Admin app
   - [x] Display data in table
   - [x] Search
   - [x] Sort
