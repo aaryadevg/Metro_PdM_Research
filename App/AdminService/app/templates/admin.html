@@ -11,20 +11,38 @@
     />
 </head>
 <body>
-    <h1 class="text-center">Admin Panel</h1>
+    <div class="container">
+        <nav class="navbar navbar-dark justify-content-between">
+            <h1>Admin Panel</h1>
+            <a href="/logout" class="btn btn-outline-primary">Logout</a>
+        </nav>
+        <div id="wrapper"></div>
+    </div>
 
-    <div id="wrapper"></div>
 
     <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
     <script>
         let readings = [
         {% for data in sensor_data %}
-            [{{ data.id }}, '{{ data.timestamp }}', '{{ data.pred_class }}', ({{ data.confidence }}).toFixed(4) * 100 + "%"],
+            [{{ data.id }}, '{{ data.timestamp }}', '{{ data.pred_class }}', {{ data.confidence }}, null],
         {% endfor %}
         ]
 
         new gridjs.Grid({
-            columns: ['ID', 'Timestamp', 'Class', 'Confidence'],
+            columns: ['ID', 'Timestamp', 'Class', 'Confidence', {
+                name: "Mark Failure",
+                formatter: (cell, row) => {
+                    return gridjs.h('button', {
+                        className: 'btn btn-danger',
+                        onClick: () => {
+                            fetch(`/mark/${row.cells[0].data}`).then(resp => resp.json())
+                            .then(data => {
+                                alert(`Marked ${data.id} as failure`)
+                            })
+                        }
+                    }, 'Mark Failure');
+                }
+            }],
             data: readings,
             search: true,
             sort:true,

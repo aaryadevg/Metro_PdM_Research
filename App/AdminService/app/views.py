@@ -7,11 +7,12 @@ from flask_login import login_user, login_required, logout_user, current_user
 from app.forms import LoginForm, SignupForm
 import requests
 
-def toDict(keys, values):
-    stringified = map(str, values)
-    return dict(zip(keys, stringified))
-    
-
+@app.route("/mark/<int:id>")
+def mark_failure(id: int):
+    data_point = SensorData.query.get(id)
+    data_point.actual_label = 2
+    db.session.commit()
+    return jsonify({"message" : "changed", "id" : id})
 
 @app.route('/')
 @login_required
