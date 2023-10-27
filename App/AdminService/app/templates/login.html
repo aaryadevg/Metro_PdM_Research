@@ -6,25 +6,48 @@
     <title>Login Form</title>
     <!-- Include Bootstrap CSS (You may need to adjust the paths) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background: rgb(0,0,0);
+            background: -moz-linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,53,1) 53%, rgba(0,0,110,1) 100%);
+            background: -webkit-linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,53,1) 53%, rgba(0,0,110,1) 100%);
+            background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,53,1) 53%, rgba(0,0,110,1) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endColorstr="#00006e",GradientType=1);
+        }
+         /* Custom CSS for input fields */
+        .text-input {
+            background-color: rgba(85, 85, 85, 0.1); /* Dark background color */
+            border: none;
+            border-bottom: 2px solid #007bff; /* Blue underline */
+            border-radius: 0; /* Remove any border-radius */
+            color: #fff; /* Text color */
+            width: 100%;
+        }
+        .text-input::placeholder {
+            color: #777; /* Placeholder text color */
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <h2>Login</h2>
+    <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+        <div class="card col-4 bg-dark text-light">
+            <div class="card-body">
+                <h2 class="text-center">Login</h2>
+                <hr />
                 <form method="POST" action="/login">
                     {{ form.hidden_tag() }}
                     <div class="mb-3">
-                        {{ form.username.label(class="form-label") }}
-                        {{ form.username(class="form-control", placeholder="Username") }}
+                        {{ form.username.label(class="form-label") }} <br/>
+                        {{ form.username(class="text-input", placeholder="") }}
                         <!-- Display form errors if there are any -->
                         {% for error in form.username.errors %}
                             <div class="text-danger">{{ error }}</div>
                         {% endfor %}
                     </div>
                     <div class="mb-3">
-                        {{ form.password.label(class="form-label") }}
-                        {{ form.password(class="form-control", placeholder="Password") }}
+                        {{ form.password.label(class="form-label") }} 
+                        <br/>
+                        {{ form.password(class="text-input", placeholder="") }}
                         <!-- Display form errors if there are any -->
                         {% for error in form.password.errors %}
                             <div class="text-danger">{{ error }}</div>
@@ -32,11 +55,10 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Login</button>
                 </form>
-                <a href="/signup" class="btn btn-info">Sign Up</a>
+                <a href="/signup" class="btn btn-link d-block text-center">Create an account</a>
             </div>
         </div>
     </div>
-    
     <!-- Include Bootstrap JS (You may need to adjust the paths) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
