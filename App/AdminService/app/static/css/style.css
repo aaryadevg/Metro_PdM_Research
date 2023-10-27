@@ -4,20 +4,20 @@
     --bs-dark: #2b2d42
 }
 .glass {
-    background: rgba(255, 255, 255, 0.1); /* Background with frosted glass effect */
+    background: rgba(255, 255, 255, 0.3); /* Background with frosted glass effect */
     border: 1px solid rgba(255, 255, 255, 0.2); /* Slight border for better visibility */
     padding: 20px;
     border-radius: 10px;
 }        
 body {
-    background-color: #1d3557;
-}
+    background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
+
 .text-input {
     background-color: rgba(85, 85, 85, 0.1); /* Dark background color */
     border: none;
     border-bottom: 2px solid #007bff; /* Blue underline */
     border-radius: 0; /* Remove any border-radius */
-    color: var(--bs-light); /* Text color */
+    color: var(--bs-dark); /* Text color */
     width: 100%;
 }
 
