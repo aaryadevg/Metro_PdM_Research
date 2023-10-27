@@ -1,0 +1,29 @@
+:root {
+    --bs-primary: #457b9d;
+    --bs-light: #f8f9fa;
+    --bs-dark: #2b2d42
+}
+.glass {
+    background: rgba(255, 255, 255, 0.1); /* Background with frosted glass effect */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Slight border for better visibility */
+    padding: 20px;
+    border-radius: 10px;
+}        
+body {
+    background-color: #1d3557;
+}
+.text-input {
+    background-color: rgba(85, 85, 85, 0.1); /* Dark background color */
+    border: none;
+    border-bottom: 2px solid #007bff; /* Blue underline */
+    border-radius: 0; /* Remove any border-radius */
+    color: var(--bs-light); /* Text color */
+    width: 100%;
+}
+
+.custom-table {
+    background-color: #343a40; /* Dark background color for the table */
+    color: white; /* Text color */
+}
+
+

@@ -9,13 +9,15 @@
         href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css"
         rel="stylesheet"
     />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" >
 </head>
 <body>
-    <div class="container">
-        <nav class="navbar navbar-dark justify-content-between">
+    <div class="container text-light">
+        <nav class="navbar justify-content-between">
             <h1>Admin Panel</h1>
             <a href="/logout" class="btn btn-outline-primary">Logout</a>
         </nav>
+        <hr/>
         <div id="wrapper"></div>
     </div>
 
@@ -29,7 +31,8 @@
         ]
 
         new gridjs.Grid({
-            columns: ['ID', 'Timestamp', 'Class', 'Confidence', {
+            columns: ['ID', 'Timestamp', 'Class', 'Confidence', 
+            {
                 name: "Mark Failure",
                 formatter: (cell, row) => {
                     return gridjs.h('button', {
