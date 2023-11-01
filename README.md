@@ -22,7 +22,7 @@ LaTeX source to keep track of the paper in iterations
   - [X] Sort
   - [X] Form to Mark Failure
   - [ ] Docker?
-  - [ ] Dashboard
+  - [x] Dashboard
 - [ ] Try RUL Approach
 - [ ] Evaluate RUL
 - [ ] Finish Off Paper
