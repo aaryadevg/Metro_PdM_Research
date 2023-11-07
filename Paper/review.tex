@@ -35,7 +35,8 @@
             
         \vfill
             
-        A Research project presented for the Post graduate diploma in\\
+        A Research project presented for \\
+        Post Graduate Diploma in\\
         Data Science and AI
             
         \vspace{0.8cm}
@@ -547,7 +548,32 @@ Figure 3 shows the basic architecture diagram we have implemented in this projec
     \label{fig:architecture}
 \end{figure}
 
+\section{Conclusion}
 
+\begin{table}[htbp]
+\caption{Results summary of all models}
+\centering
+\begin{tabular}{l|c|c|c|}
+\cline{2-4}
+                                             & \multicolumn{1}{l|}{Accuracy} & \multicolumn{1}{l|}{Precision (Class 2)} & \multicolumn{1}{l|}{Recall (Class 2)} \\ \hline
+\multicolumn{1}{|l|}{SVM}                    & 0.57                          & 0.60                                     & 0.62                                  \\
+\multicolumn{1}{|l|}{Decision Tree}          & 0.66                          & 0.69                                     & 0.70                                  \\
+\multicolumn{1}{|l|}{Random Forest}          & 0.70                          & \textit{0.69}                            & 0.78                                  \\
+\multicolumn{1}{|l|}{Neural Network (Adam)}  & 0.72                          & 0.67                                     & \textbf{0.91}                         \\
+\multicolumn{1}{|l|}{Neural Network (AdamW)} & \textbf{0.76}                 & \textbf{0.75}                            & \textit{0.87}                         \\
+\multicolumn{1}{|l|}{LSTM}                   & 0.74*                         & -                                    & -                                 \\ \hline
+\end{tabular}
+\end{table}
+
+Table 8 provides a comprehensive summary of all the models that were evaluated during our research, along with the key metrics that were important for our investigation. In our case, where the primary objective is to predict failures in advance, we specifically focused on precision and recall for the pre-failure class.\\
+
+Precision signifies the proportion of positive cases that the model correctly predicts. In other words, if the model has a precision of "p," it means that when the model signals a pre-failure event, it is correct approximately "p" percent.\\
+
+Recall, on the other hand, is defined as the proportion of all actual positives that the model successfully identifies. A recall value of "r" implies that our model accurately predicts "r" percent of pre-failure events.\\
+
+It's crucial to understand the trade-off between precision and recall. As one metric increases, the other tends to decrease. Therefore, when deploying our model, it becomes necessary to establish a threshold according to the specific project requirements. If we opt for a high recall setup, we increase the likelihood of correctly identifying all pre-failure cases, but this may also lead to more false positives. Conversely, a high precision indicates that when the model predicts a pre-failure event, it is highly likely to be correct, but there's a risk of missing some pre-failure cases.\\
+
+The choice of a model for deployment should consider the project's particular needs, and the threshold for classification can be appropriately set to prioritize either precision or recall. In Table 8, we have highlighted the models with the best precision and best recall in bold, and the second-best models in italics, allowing for flexibility in model selection based on the project's specific requirements.
 
 \newpage
 
