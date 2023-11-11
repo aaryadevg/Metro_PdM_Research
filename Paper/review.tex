@@ -54,7 +54,7 @@
 \maketitle
 
 \begin{abstract}
-Predictive maintenance is vital for ensuring the reliable operation of metro transportation systems, enhancing passenger safety, and minimizing service disruptions. In this research, we focus on the challenging task of predicting failures on the Air Processing Unit (APU) on a metro system at least two hours in advance. An APU is a component on the metro responsible for compressing and storing compressed air for use on various functions on the metro such as the suspension. Our study encompasses a comprehensive comparison of various machine learning and depp learning models, including Support Vector Machines (SVM), Decision Trees, Long Short-Term Memory (LSTM) networks. These models are evaluated for their performance in predicting impending failures using various metrics such as accuracy, precision, recall and F1-Score for classification, providing valuable insights into their applicability in this context.\\
+Predictive maintenance is vital for ensuring the reliable operation of metro transportation systems, enhancing passenger safety, and minimizing service disruptions. In this research, we focus on the challenging task of predicting failures on the Air Processing Unit (APU) on a metro system at least two hours in advance. An APU is a component on the metro responsible for compressing and storing compressed air for use on various functions on the metro such as the suspension. Our study encompasses a comprehensive comparison of various machine learning and deep learning (DL) models, including Support Vector Machines (SVM), Decision Trees, Long Short-Term Memory (LSTM) networks. These models are evaluated on the MetroPT Dataset published by Veloso et al. in 2022\cite{Veloso2022} for their performance in predicting impending failures using various metrics such as accuracy, precision, recall and F1-Score for classification, providing valuable insights into their applicability in this context.\\
 
 Additionally, we introduce a practical demonstration of a web API designed to showcase how the model would be deployed in a real world situation. This API serves as a testament to the feasibility of deploying predictive maintenance models in production settings. \\
 
@@ -74,6 +74,20 @@ It is important to note that while our research offers valuable insights into mo
 \listofalgorithms
 
 \newpage
+
+\section {Introduction}
+
+Metro systems are a relatively new transportation solution in India, offering
+passengers a convenient and efficient mode of travel. However, like any infrastructure, metro systems encounter technical faults and maintenance problems.
+These issues can lead to the temporary suspension of metro services, causing
+distress to commuters and operational hiccups. We don’t aim to eradicate the necessity of maintenance. Instead, our focus is on harnessing the potential of ML and DL technologies to predict when the APU on a metro is about to fail. Our inspiration comes from the
+realm of existing research, which has delved into the application of AI methodologies in various engineering domains, including wind turbines and jet engines.
+While the practical deployment of such systems in real-world scenarios may differ, In this study we aim to adapt and test these approaches on the MetroPT dataset and compare their applicability for predicting APU failures. This approach has the promise of
+substantial cost savings by eliminating the superfluous expenses incurred during
+routine system operation. Moreover, our predictive maintenance system lays the
+groundwork for proactive planning. It enables us to forecast maintenance necessities well in advance.
+Our Research focuses on detecting failures specifically in the Air Production Unit (APU). The APU is a vital component on any modern metro systems it is used for producing and storing compressed air for use throughout the metro system, in other components such as the air breaks and also the pneumatic
+doors.
 
 \section{Literature Review}
 
@@ -107,7 +121,6 @@ Several models originally designed for failure prediction have found applicabili
 
 We will not be delving into an extensive exploration of Remaining Useful Life (RUL) prediction, as it does not constitute the primary thrust or intent of our dataset. Nevertheless, we endeavor to provide a conceptual framework for its prospective application, allowing for potential future investigations into RUL prediction using this dataset.
 
-\newpage
 
 \section{Background}
 
@@ -151,7 +164,9 @@ It is crucial to acknowledge that these values are approximations and are solely
 
 \section{Data preprocessing}
 
-In the data preprocessing stage, two distinct copies of the dataset are being created, each tailored for a different Machine Learning (ML) task:
+In the data preprocessing stage, two distinct copies of the dataset are being created, each tailored for a different Machine Learning (ML) task. It is important to note that this dataset does not contain any missing values or erroneous values. \\
+
+Prior to training and testing any of the model we choose to scale data using standard scaling, this is done to help optimization as all of the features are in roughly the same scale.
 
 \subsection{Multiclass Classification} 
 
@@ -573,7 +588,13 @@ Recall, on the other hand, is defined as the proportion of all actual positives 
 
 It's crucial to understand the trade-off between precision and recall. As one metric increases, the other tends to decrease. Therefore, when deploying our model, it becomes necessary to establish a threshold according to the specific project requirements. If we opt for a high recall setup, we increase the likelihood of correctly identifying all pre-failure cases, but this may also lead to more false positives. Conversely, a high precision indicates that when the model predicts a pre-failure event, it is highly likely to be correct, but there's a risk of missing some pre-failure cases.\\
 
-The choice of a model for deployment should consider the project's particular needs, and the threshold for classification can be appropriately set to prioritize either precision or recall. In Table 8, we have highlighted the models with the best precision and best recall in bold, and the second-best models in italics, allowing for flexibility in model selection based on the project's specific requirements.
+The choice of a model for deployment should consider the project's particular needs, and the threshold for classification can be appropriately set to prioritize either precision or recall. In Table 8, we have highlighted the models with the best precision and best recall in bold, and the second-best models in italics, allowing for flexibility in model selection based on the project's specific requirements. \\
+
+From this study we have found that simple neural network based algorithms work best for this classification problem however a good alternative could be to use random forest if computational resources are a limitation when it comes to deployment. \\
+
+Our study does not fully explore utilise the temporal relationships in the data and the true capabilities of the LSTM model due to the difficulty in balancing the data. \\
+
+Another aspect which could be explored in the future is the use of transformer based models for predicting failures as well as security concerns when deploying these model, with the key question being how we can ensure that data is sent by a valid sensor on the network.
 
 \newpage
 
