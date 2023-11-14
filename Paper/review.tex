@@ -250,7 +250,7 @@ It is essential to recognize that the exploratory data analysis (EDA) conducted 
 \begin{figure}
     \centering
     \includegraphics[width=1\linewidth]{EDA_Res.png}
-    \caption{Enter Caption}
+    \caption{Increase in resevoirs before Failure 1}
     \label{fig:enter-label}
 \end{figure}
 
@@ -542,28 +542,9 @@ However to address this issue we did consider using a balanced accuracy metric w
 
 Table 7 provides a clear indication that this particular model predominantly classifies all data points as normal, with minimal effort to identify failure cases. Its performance in this regard is notably poor, as evidenced by the extremely low F1 Score of 0.03. As mentioned previously, the deployment of an LSTM-based model necessitates a thorough investigation and refinement before considering practical implementation. In terms of the balanced accuracy it is better than Random Forest but worse than the neural network.
 
-
-\section{Deployment and future scope}
-As we previously mention, one of the objectives of our study is to not only evaluate these models but also offer guidance on their practical deployment in production settings. To accomplish this, we have implemented an API, which stands for Application Programming Interface. An API is a set of rules and protocols that allows different software applications to communicate and interact with each other. In our case, this API is designed to leverage one of the models, specifically the neural network, for making real-time predictions on incoming data.\\
-
-It's important to note that our approach is highly versatile and extensible. While we have chosen to utilize the neural network for this purpose, we have designed the system in a manner that allows for use with other models if desired. This flexibility ensures that the API can accommodate a variety of machine learning models, enabling adaptability to specific needs and requirements in different production scenarios.\\
-
-In addition to the model API, we strongly recommend implementing a separate API dedicated to database functionality. This approach offers multiple advantages. Firstly, it enables the adoption of a microservice architecture, which is beneficial because it allows for individual scalability of different components according to specific needs \cite{Patel2021}. \\
-
-The database API, for instance, primarily demands increased storage resources rather than computational power. Consequently, you can deploy cloud instances with greater storage capacity to run the database service, while, in contrast, the model API might require enhanced computational resources and, potentially, a CUDA-compatible GPU for efficient execution.\\
-
-Secondly, this separation of concerns is highly advantageous. It ensures that the ML model remains agnostic to the database schema, which not only enhances modularity but also simplifies maintenance and future modifications, we facilitate easier development, testing, and maintenance of each component, contributing to the overall robustness and flexibility of the system. \\
-
-Figure 3 shows the basic architecture diagram we have implemented in this project, however we aknowledge the need of projects differ but these are some recommendations that we make, when deploying this model
-
-\begin{figure}
-    \centering
-    \includegraphics[width=1\linewidth]{architecture_basic.png}
-    \caption{basic architecture}
-    \label{fig:architecture}
-\end{figure}
-
 \section{Conclusion}
+
+\subsection{Discussion of Results}
 
 \begin{table}[htbp]
 \caption{Results summary of all models}
@@ -590,11 +571,38 @@ It's crucial to understand the trade-off between precision and recall. As one me
 
 The choice of a model for deployment should consider the project's particular needs, and the threshold for classification can be appropriately set to prioritize either precision or recall. In Table 8, we have highlighted the models with the best precision and best recall in bold, and the second-best models in italics, allowing for flexibility in model selection based on the project's specific requirements. \\
 
+\subsection{Research Recommendations and limitations}
+
 From this study we have found that simple neural network based algorithms work best for this classification problem however a good alternative could be to use random forest if computational resources are a limitation when it comes to deployment. \\
 
 Our study does not fully explore utilise the temporal relationships in the data and the true capabilities of the LSTM model due to the difficulty in balancing the data. \\
 
-Another aspect which could be explored in the future is the use of transformer based models for predicting failures as well as security concerns when deploying these model, with the key question being how we can ensure that data is sent by a valid sensor on the network.
+Another aspect which could be explored in the future is the use of transformer based models for predicting failures as well as security concerns when deploying these model, with the key question being how we can ensure that data is sent by a valid sensor on the network.\\
+
+Transformer neural networks have recently gained popularity for their use in NLP, transformer models were originally created for machine translation they were introduced in 2017. \cite{Vaswani2017} \\
+
+Transformer have been used in many production grade NLP systems, with the most well known being the GPT (Generative Pretrained Transformer). we believe that transformers can be used for failure predictions because they have shown promising results for Sequence modelling as is the case with NLP applications, with the difference being that a sequence in NLP consist of vector representations of words while a sequence in our case consist of sensor data.
+
+
+\subsection{Deployment}
+As we previously mention, one of the objectives of our study is to not only evaluate these models but also offer guidance on their practical deployment in production settings. To accomplish this, we have implemented an API, which stands for Application Programming Interface. An API is a set of rules and protocols that allows different software applications to communicate and interact with each other. In our case, this API is designed to leverage one of the models, specifically the neural network, for making real-time predictions.\\
+
+It's important to note that our approach is highly versatile and extensible. While we have chosen to utilize the neural network for this purpose, we have designed the system in a manner that allows for use with other models if desired. This flexibility ensures that the API can accommodate a variety of machine learning models, enabling adaptability to specific needs and requirements in different production scenarios.\\
+
+In addition to the model API, we strongly recommend implementing a separate API dedicated to database functionality. This approach offers multiple advantages. Firstly, it enables the adoption of a microservice architecture, which is beneficial because it allows for individual scalability of different components according to specific needs \cite{Patel2021}. \\
+
+The database API, for instance, primarily demands increased storage resources rather than computational power. Consequently, you can deploy cloud instances with greater storage capacity to run the database service, while, in contrast, the model API might require enhanced computational resources and, potentially, a CUDA-compatible GPU for efficient execution.\\
+
+Secondly, this separation of concerns is highly advantageous. It ensures that the ML model remains agnostic to the database schema, which not only enhances modularity but also simplifies maintenance and future modifications, we facilitate easier development, testing, and maintenance of each component, contributing to the overall robustness and flexibility of the system. \\
+
+Figure 6 shows the basic architecture diagram we have implemented in this project, however we aknowledge the need of projects differ but these are some recommendations that we make, when deploying this model
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{architecture_basic.png}
+    \caption{basic architecture}
+    \label{fig:architecture}
+\end{figure}
 
 \newpage
 
