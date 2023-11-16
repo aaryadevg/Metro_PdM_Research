@@ -135,7 +135,7 @@ You need to download and install Jupyter notebooks or use the Jupyter VS Code ex
 
 ## Contact
 
-Feel free to reach out to me for any questions or request for collaboration to me via [email](aaryadevg@gmail.com)
+Feel free to reach out to me for any questions or request for collaboration to me via aaryadevg@gmail.com
 
 ## Timeline
 
