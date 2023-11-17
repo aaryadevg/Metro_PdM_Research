@@ -27,7 +27,7 @@
             
         \vspace{0.5cm}
         \LARGE
-        Created under Guidance of Prof. Tausif Saikh
+        Created under Guidance of Prof. Tausif Shaikh
             
         \vspace{1.5cm}
             
@@ -523,7 +523,8 @@ To process the dataset we begin with the base classification dataset that we cre
 
 The next step in data preparation is to create the target column this is what the model will try to predict. creating the target column is rather simple and we do this selecting the value of the target column at the end of each sequence.
 
-This also creates a much more sever im-balance in the dataset as the number of records in the minority are decreased even more, a significant challenge inherent to LSTM models. Since the input data. Given that the input data is structured as a 3rd order tensor, the process of resampling this data becomes notably complex. Traditional machine learning libraries commonly utilized are not well-equipped to handle intricate datasets like 3rd order tensors. Consequently, the development of custom algorithms is necessitated to effectively address this issue. which would require domain experts, Because of this we decided to opted for a standard down sampling approach by taking only $n$ first records from all class where $n$ is the number of records in the minority.\\
+This also creates a much more sever im-balance in the dataset as the number of records in the minority are decreased even more, a significant challenge inherent to LSTM models. Since the input data. Given that the input data is structured as a 3rd order tensor, the process of resampling this data becomes notably complex. Traditional machine learning libraries commonly utilized are not well-equipped to handle intricate datasets like 3rd order tensors. Consequently, the development of custom algorithms is necessitated to effectively address this issue. which would require domain experts, Because of this we decided to opted for a standard down sampling approach by taking only $k$ first records from all class where $k$ is the number of records in the minority. This approach is inspired by Chen et al. who faced a similar issue in their paper "Predicting Air Compressor Failures Using Long Short Term Memory Networks" \cite{Chen2019}\\
+
 
 The advantage to this is it very efficient computationally, however we acknowledge this may not be the best approach as this could potentially create some bias, and this also reduces the number of records significantly.\\
 
