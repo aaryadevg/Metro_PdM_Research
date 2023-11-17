@@ -27,7 +27,7 @@
             
         \vspace{0.5cm}
         \LARGE
-        Created under Guidance of Prof. Tausif Saikh
+        Created under Guidance of Prof. Tausif Shaikh
             
         \vspace{1.5cm}
             
@@ -250,7 +250,7 @@ It is essential to recognize that the exploratory data analysis (EDA) conducted 
 \begin{figure}
     \centering
     \includegraphics[width=1\linewidth]{EDA_Res.png}
-    \caption{Enter Caption}
+    \caption{Increase in resevoirs before Failure 1}
     \label{fig:enter-label}
 \end{figure}
 
@@ -499,7 +499,7 @@ LSTM models, short for Long Short-Term Memory models, represent a category of de
 
 In architectural terms, LSTMs exhibit similarities to standard RNNs, given their shared reliance on recurrent connections. However, LSTMs introduce a pivotal architectural element, the memory cell, which assumes the responsibility of preserving the network's long-term memory. This memory cell is equipped with four crucial gated components: the forget gate, input gate, input node, and output gate. \\
 
-In Figure 2 the input is denoted $\Vec{h_i}$ the hidden unit of the previous layer (Like RNNs) is denoted $\vec{h_{i-1}}$ the forget gate is $f_i$ decicdes if the current memory state should be discarded or not, input gate is $i_i$, the input node is denoted $g_i$ and the output is denoted $o_i$ the $\times$ symbol means a hadamard or elementwise multiplication. and $\sigma$ denotes the sigmoid activation function defined as:\\
+In Figure 5 the input is denoted $\Vec{h_i}$ the hidden unit of the previous layer (Like RNNs) is denoted $\vec{h_{i-1}}$ the forget gate is $f_i$ decicdes if the current memory state should be discarded or not, input gate is $i_i$, the input node is denoted $g_i$ and the output is denoted $o_i$ the $\times$ symbol means a hadamard or elementwise multiplication. and $\sigma$ denotes the sigmoid activation function defined as:\\
 
 \begin{equation}
     \sigma(x) = \frac{1}{1+\exp(-x)}
@@ -511,7 +511,9 @@ in terms of the implementation the gates G in an LSTM is similar to a linear lay
     G = \sigma(XW_g + H_{t-1}W_g + b)
 \end{equation}
 
-During each time step, LSTM cell returns both the current hidden state and memory cell state. This allows the stacking of LSTMs, which, can be used to create highly intricate architectures, in our study we stack 3 LSTMs.\\
+During each time step, LSTM cell returns both the current hidden state and memory cell state. This allows the stacking of LSTMs, which, can be used to create highly intricate architectures, in our study we stacked 5 LSTMs. followed by a linear layer for the output.\\
+
+In the LSTMs we used dropout a form of regularization in neural networks which temporarily destroys some of the connections between neurons which allow the network to learn different pathways, similar to an ensemble model. we used this perticularly on the LSTMs due to the number of parameters used. \cite{srivastava2014} 
 
 \subsubsection{Data preprocessing for the LSTM}
 
@@ -519,13 +521,18 @@ The preparation of data for LSTM models in the context of sequential data can in
 
 To process the dataset we begin with the base classification dataset that we created for all classification task this dataset has the $n$ = 10.7 Million rows (1.07 crores) and $m$ = 16 columns, the first step is creating the Input the $X$ Matrix. then we split the matrix into chunks of $s$ (84 in our case) which creates a 3rd order tensor with the shape $\left[ \frac{n}{s}, s, m - 1 \right]$.\\
 
-The next step in data preparation is to create the target column this is what the model will try to predict. creating the target column is rather simple and we do this selecting the value of the target column at the end of each sequence. 
+The next step in data preparation is to create the target column this is what the model will try to predict. creating the target column is rather simple and we do this selecting the value of the target column at the end of each sequence.
+
+This also creates a much more sever im-balance in the dataset as the number of records in the minority are decreased even more, a significant challenge inherent to LSTM models. Since the input data. Given that the input data is structured as a 3rd order tensor, the process of resampling this data becomes notably complex. Traditional machine learning libraries commonly utilized are not well-equipped to handle intricate datasets like 3rd order tensors. Consequently, the development of custom algorithms is necessitated to effectively address this issue. which would require domain experts, Because of this we decided to opted for a standard down sampling approach by taking only $k$ first records from all class where $k$ is the number of records in the minority. This approach is inspired by Chen et al. who faced a similar issue in their paper "Predicting Air Compressor Failures Using Long Short Term Memory Networks" \cite{Chen2019}\\
+
+
+The advantage to this is it very efficient computationally, however we acknowledge this may not be the best approach as this could potentially create some bias, and this also reduces the number of records significantly.\\
 
 \subsubsection{Results}
 
-A significant challenge inherent to LSTM models pertains to the nature of the input data. Given that the input data is structured as a 3rd order tensor, the process of resampling this data becomes notably complex. Traditional machine learning libraries commonly utilized are not well-equipped to handle intricate datasets like 3rd order tensors. Consequently, the development of custom algorithms is necessitated to address this issue. It's crucial to note that, unlike our previous approaches, the results obtained for LSTM models were attained without the use of data balancing techniques. This means that the results should be tested when practical performance of an LSTM-based system is considered for production. It's worth mentioning that a similar challenge would also be encountered with any Convolutional Neural Network (CNN) based approach, as CNNs require image inputs, which, too, are represented as higher order tensors.\\
+ It's crucial to note that, unlike our previous approaches, the results obtained for LSTM models were attained without the use of the same data balancing techniques ie. Near miss Under sampling v3. This means that the results should be tested when practical performance of an LSTM-based system is considered for production. It's worth mentioning that a similar challenge would also be encountered with any Convolutional Neural Network (CNN) based approach, as CNNs require image inputs, which, too, are represented as higher order tensors.\\
 
-However to address this issue we did consider using a balanced accuracy metric which uses the number of instances of a class when determining the accuracy. this metric is not influenced by the number of instances in a class and the accuracy does not change much when the model predicts a majority class correctly. A good explanation on balanced accuracy can be found in a blog by Olugbenga for NeptuneAI, in their blog the go over how balanced accuracy works and the advantages this metric. \cite{Olugbenga2023}.\\
+However to address this issue we did consider using a balanced accuracy, metric which uses the number of instances of a class when determining the accuracy. this metric is not influenced by the number of instances in a class and the accuracy does not change much when the model predicts a majority class correctly. A good explanation on balanced accuracy can be found in a blog by Olugbenga for NeptuneAI, in their blog the go over how balanced accuracy works and the advantages this metric. \cite{Olugbenga2023}. we also developed a rather basic down sampling approach which we used to test out the LSTM, it worth noting that despite the approach being simple, the balancing did increase the accuracy from 74\% to 76\% which is on par with the neural network.\\
 
 \begin{table}[htbp]
 \caption{LSTM Results}
@@ -533,18 +540,63 @@ However to address this issue we did consider using a balanced accuracy metric w
 \begin{tabular}{|l|lll|}
 \hline
                     & \multicolumn{1}{l|}{\textbf{Normal}} & \multicolumn{1}{l|}{\textbf{Pre Failure}} & \textbf{Failure} \\ \hline
-\textbf{Precision}  & \multicolumn{1}{l|}{1}               & \multicolumn{1}{l|}{0}                    & 0.02             \\ \hline
-\textbf{Recall}     & \multicolumn{1}{l|}{0.97}            & \multicolumn{1}{l|}{0}                    & 1                \\ \hline
-\textbf{F1 - Score} & \multicolumn{1}{l|}{0.98}            & \multicolumn{1}{l|}{0}                    & 0.03             \\ \hline
-\textbf{Accuracy}   & \multicolumn{3}{r|}{0.74}                                                                           \\ \hline
+\textbf{Precision}  & \multicolumn{1}{l|}{0.78}               & \multicolumn{1}{l|}{0.65}                    & 0.94             \\ \hline
+\textbf{Recall}     & \multicolumn{1}{l|}{0.78}            & \multicolumn{1}{l|}{0.85}                    & 0.65                \\ \hline
+\textbf{F1 - Score} & \multicolumn{1}{l|}{0.78}            & \multicolumn{1}{l|}{0.74}                    & 0.77             \\ \hline
+\textbf{Accuracy}   & \multicolumn{3}{r|}{0.76}                                                                           \\ \hline
 \end{tabular}
 \end{table}
 
-Table 7 provides a clear indication that this particular model predominantly classifies all data points as normal, with minimal effort to identify failure cases. Its performance in this regard is notably poor, as evidenced by the extremely low F1 Score of 0.03. As mentioned previously, the deployment of an LSTM-based model necessitates a thorough investigation and refinement before considering practical implementation. In terms of the balanced accuracy it is better than Random Forest but worse than the neural network.
+Table 7 provides a clear indication that this particular model is on par with the neural network however, the deployment of an LSTM-based model necessitates a thorough investigation and refinement before considering practical implementation. In terms of the balanced accuracy it the same as the neural network but has slightly lower precision and recall for the pre failure class as compared to the Neural Network.\\
+
+The LSTM has the most number of parameters (154k) compared to the neural network which had around 25k, this 516\% increase resulting in decrease in precision and recall and having the same accuracy, which make it really difficult to justify the use of LSTMs in practice.
+
+\section{Conclusion}
+
+\subsection{Discussion of Results}
+
+\begin{table}[htbp]
+\caption{Results summary of all models}
+\centering
+\begin{tabular}{l|c|c|c|}
+\cline{2-4}
+                                             & \multicolumn{1}{l|}{Accuracy} & \multicolumn{1}{l|}{Precision (Class 1)} & \multicolumn{1}{l|}{Recall (Class 1)} \\ \hline
+\multicolumn{1}{|l|}{SVM}                    & 0.57                          & 0.60                                     & 0.62                                  \\
+\multicolumn{1}{|l|}{Decision Tree}          & 0.66                          & 0.69                                     & 0.70                                  \\
+\multicolumn{1}{|l|}{Random Forest}          & 0.70                          & \textit{0.69}                            & 0.78                                  \\
+\multicolumn{1}{|l|}{Neural Network (Adam)}  & 0.72                          & 0.67                                     & \textbf{0.91}                         \\
+\multicolumn{1}{|l|}{Neural Network (AdamW)} & \textbf{0.76}                 & \textbf{0.75}                            & \textit{0.87}                         \\
+\multicolumn{1}{|l|}{LSTM}                   & 0.74*                         & 0.64                                    & 0.85                                \\ \hline
+\end{tabular}
+\end{table}
+
+Table 8 provides a comprehensive summary of all the models that were evaluated during our research, along with the key metrics that were important for our investigation. In our case, where the primary objective is to predict failures in advance, we specifically focused on precision and recall for the pre-failure class.\\
+
+Precision signifies the proportion of positive cases that the model correctly predicts. In other words, if the model has a precision of "p" it means that when the model signals a pre-failure event, it is correct approximately "p" percent.\\
+
+Recall, on the other hand, is defined as the proportion of all actual positives that the model successfully identifies. A recall value of "r" implies that our model accurately predicts "r" percent of pre-failure events.\\
+
+It's crucial to understand the trade-off between precision and recall. As one metric increases, the other tends to decrease. Therefore, when deploying our model, it becomes necessary to establish a threshold according to the specific project requirements. If we opt for a high recall setup, we increase the likelihood of correctly identifying all pre-failure cases, but this may also lead to more false positives. Conversely, a high precision indicates that when the model predicts a pre-failure event, it is highly likely to be correct, but there's a risk of missing some pre-failure cases.\\
+
+The choice of a model for deployment should consider the project's particular needs, and the threshold for classification can be appropriately set to prioritize either precision or recall. In Table 8, we have highlighted the models with the best precision and best recall in bold, and the second-best models in italics, allowing for flexibility in model selection based on the project's specific requirements. \\
+
+\subsection{Research Recommendations and limitations}
+
+From this study we have found that simple neural network based algorithms work best for this classification problem however a good alternative could be to use random forest if computational resources are a limitation when it comes to deployment. \\
+
+Our study does not fully explore utilise the temporal relationships in the data and the true capabilities of the LSTM model due to the difficulty in balancing the data, as well as the difficulty in training the model. \\
+
+Another aspect which could be explored in the future is the use of transformer based models for predicting failures as well as security concerns when deploying these model, with the key question being how we can ensure that data is sent by a valid sensor on the network.\\
+
+One could also look into anomaly detection algorithms as way to bypass the unbalanced nature of the data, anomaly detection can be trained on 1 type of class and give return the likely-hood of a new data point being a part of the original data, this means that we only need to train the model on data of normal operating conditions and we can lable a point as failure or pre-failure based on the score returned by anomaly detection model. \cite{Choi2021}\\
+
+Transformer neural networks have recently gained popularity for their use in NLP, transformer models were originally created for machine translation they were introduced in 2017. \cite{Vaswani2017} \\
+
+Transformer have been used in many production grade NLP systems, with the most well known being the GPT (Generative Pretrained Transformer). we believe that transformers can be used for failure predictions because they have shown promising results for Sequence modelling as is the case with NLP applications, with the difference being that a sequence in NLP consist of vector representations of words while a sequence in our case consist of sensor data.
 
 
-\section{Deployment and future scope}
-As we previously mention, one of the objectives of our study is to not only evaluate these models but also offer guidance on their practical deployment in production settings. To accomplish this, we have implemented an API, which stands for Application Programming Interface. An API is a set of rules and protocols that allows different software applications to communicate and interact with each other. In our case, this API is designed to leverage one of the models, specifically the neural network, for making real-time predictions on incoming data.\\
+\subsection{Deployment}
+As we previously mention, one of the objectives of our study is to not only evaluate these models but also offer guidance on their practical deployment in production settings. To accomplish this, we have implemented an API, which stands for Application Programming Interface. An API is a set of rules and protocols that allows different software applications to communicate and interact with each other. In our case, this API is designed to leverage one of the models, specifically the neural network, for making real-time predictions.\\
 
 It's important to note that our approach is highly versatile and extensible. While we have chosen to utilize the neural network for this purpose, we have designed the system in a manner that allows for use with other models if desired. This flexibility ensures that the API can accommodate a variety of machine learning models, enabling adaptability to specific needs and requirements in different production scenarios.\\
 
@@ -554,7 +606,7 @@ The database API, for instance, primarily demands increased storage resources ra
 
 Secondly, this separation of concerns is highly advantageous. It ensures that the ML model remains agnostic to the database schema, which not only enhances modularity but also simplifies maintenance and future modifications, we facilitate easier development, testing, and maintenance of each component, contributing to the overall robustness and flexibility of the system. \\
 
-Figure 3 shows the basic architecture diagram we have implemented in this project, however we aknowledge the need of projects differ but these are some recommendations that we make, when deploying this model
+Figure 6 shows the basic architecture diagram we have implemented in this project, however we aknowledge the need of projects differ but these are some recommendations that we make, when deploying this model
 
 \begin{figure}
     \centering
@@ -562,39 +614,6 @@ Figure 3 shows the basic architecture diagram we have implemented in this projec
     \caption{basic architecture}
     \label{fig:architecture}
 \end{figure}
-
-\section{Conclusion}
-
-\begin{table}[htbp]
-\caption{Results summary of all models}
-\centering
-\begin{tabular}{l|c|c|c|}
-\cline{2-4}
-                                             & \multicolumn{1}{l|}{Accuracy} & \multicolumn{1}{l|}{Precision (Class 2)} & \multicolumn{1}{l|}{Recall (Class 2)} \\ \hline
-\multicolumn{1}{|l|}{SVM}                    & 0.57                          & 0.60                                     & 0.62                                  \\
-\multicolumn{1}{|l|}{Decision Tree}          & 0.66                          & 0.69                                     & 0.70                                  \\
-\multicolumn{1}{|l|}{Random Forest}          & 0.70                          & \textit{0.69}                            & 0.78                                  \\
-\multicolumn{1}{|l|}{Neural Network (Adam)}  & 0.72                          & 0.67                                     & \textbf{0.91}                         \\
-\multicolumn{1}{|l|}{Neural Network (AdamW)} & \textbf{0.76}                 & \textbf{0.75}                            & \textit{0.87}                         \\
-\multicolumn{1}{|l|}{LSTM}                   & 0.74*                         & -                                    & -                                 \\ \hline
-\end{tabular}
-\end{table}
-
-Table 8 provides a comprehensive summary of all the models that were evaluated during our research, along with the key metrics that were important for our investigation. In our case, where the primary objective is to predict failures in advance, we specifically focused on precision and recall for the pre-failure class.\\
-
-Precision signifies the proportion of positive cases that the model correctly predicts. In other words, if the model has a precision of "p," it means that when the model signals a pre-failure event, it is correct approximately "p" percent.\\
-
-Recall, on the other hand, is defined as the proportion of all actual positives that the model successfully identifies. A recall value of "r" implies that our model accurately predicts "r" percent of pre-failure events.\\
-
-It's crucial to understand the trade-off between precision and recall. As one metric increases, the other tends to decrease. Therefore, when deploying our model, it becomes necessary to establish a threshold according to the specific project requirements. If we opt for a high recall setup, we increase the likelihood of correctly identifying all pre-failure cases, but this may also lead to more false positives. Conversely, a high precision indicates that when the model predicts a pre-failure event, it is highly likely to be correct, but there's a risk of missing some pre-failure cases.\\
-
-The choice of a model for deployment should consider the project's particular needs, and the threshold for classification can be appropriately set to prioritize either precision or recall. In Table 8, we have highlighted the models with the best precision and best recall in bold, and the second-best models in italics, allowing for flexibility in model selection based on the project's specific requirements. \\
-
-From this study we have found that simple neural network based algorithms work best for this classification problem however a good alternative could be to use random forest if computational resources are a limitation when it comes to deployment. \\
-
-Our study does not fully explore utilise the temporal relationships in the data and the true capabilities of the LSTM model due to the difficulty in balancing the data. \\
-
-Another aspect which could be explored in the future is the use of transformer based models for predicting failures as well as security concerns when deploying these model, with the key question being how we can ensure that data is sent by a valid sensor on the network.
 
 \newpage
 
