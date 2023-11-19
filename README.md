@@ -39,23 +39,11 @@ To get started with the research paper repository, follow these steps:
     cd Metro_PdM_Research
     ```
 
-2. Launch the Model Service (Microservice for ML model deployment):
+2. Launch the application
 
-    ```bash
-    cd App\ModelService
-    uvicorn ModelAPI:app
-    ```
-
-    The model service runs on port 8000 by default.
-
-3. Launch the Admin Service (Microservice to provide data management on top of the model):
-
-    ```bash
-    cd App\AdminService
-    python app.py
-    ```
-
-    The admin service runs on port 5000 by default.
+  ```bash
+  python start.py
+  ```
 
 Now you can explore the research paper repository and, if interested, run the API demo by launching both services in separate terminals.
 
