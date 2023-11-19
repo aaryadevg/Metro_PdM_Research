@@ -106,3 +106,4 @@ Data/*
 */AdminApp/Lib
 */AdminApp/Scripts
 */AdminApp/pyvenv.cfg
+*/tb_logs/*
