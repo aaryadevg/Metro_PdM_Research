@@ -14,7 +14,7 @@ It is important to note that while the research offers valuable insights into mo
 
 ## Table of Contents
 
-- [Failure Prediction for APU's on a Metro System](#failure-prediction-for-apus-on-a-metro-system)
+- [Failure Prediction for APU&#39;s on a Metro System](#failure-prediction-for-apus-on-a-metro-system)
   - [Abstract](#abstract)
   - [Table of Contents](#table-of-contents)
   - [Getting Started](#getting-started)
@@ -34,16 +34,15 @@ To get started with the research paper repository, follow these steps:
 
 1. Clone the repository:
 
-    ```bash
-    git clone https://github.com/aaryadevg/Metro_PdM_Research.git
-    cd Metro_PdM_Research
-    ```
-
+   ```bash
+   git clone https://github.com/aaryadevg/Metro_PdM_Research.git
+   cd Metro_PdM_Research
+   ```
 2. Launch the application
 
-  ```bash
+```bash
   python start.py
-  ```
+```
 
 Now you can explore the research paper repository and, if interested, run the API demo by launching both services in separate terminals.
 
@@ -82,44 +81,38 @@ Before running the code or replicating the experiments, make sure you have the f
 
 - [Grid.js](https://gridjs.io/) - Used for displaying SQL table data in HTML
 
-## Installation
-
-Detail the installation process, including any configuration steps.
-
 ## Usage
 
 To replicate the results of the research paper, follow these steps:
 
 1. Run the Jupyter notebook for model training and evaluation:
 
-    ```bash
-    cd ML
-    jupyter notebook Modeling.ipynb
-    ```
+   ```bash
+   cd ML
+   jupyter notebook Modeling.ipynb
+   ```
 
-    Execute all the cells in the `Modeling.ipynb` notebook to train and evaluate the machine learning models.
-
+   Execute all the cells in the `Modeling.ipynb` notebook to train and evaluate the machine learning models.
 2. Run the Jupyter notebook for testing with resampled data:
 
-    ```bash
-    cd ML_Testingv2
-    jupyter notebook Resampled.ipynb
-    ```
+   ```bash
+   cd ML_Testingv2
+   jupyter notebook Resampled.ipynb
+   ```
 
-    Execute all the cells in the `Resampled.ipynb` notebook to perform testing with resampled data.
-
+   Execute all the cells in the `Resampled.ipynb` notebook to perform testing with resampled data.
 3. Run the LSTM notebook for additional analysis:
 
-    ```bash
-    jupyter notebook LSTM2.ipynb
-    ```
+   ```bash
+   jupyter notebook LSTM2.ipynb
+   ```
 
-    Execute all the cells in the `LSTM2.ipynb` notebook for further analysis using Long Short-Term Memory networks.
+   Execute all the cells in the `LSTM2.ipynb` notebook for further analysis using Long Short-Term Memory networks.
 
-You need to download and install Jupyter notebooks or use the Jupyter VS Code extension 
+You need to download and install Jupyter notebooks or use the Jupyter VS Code extension
+
 - [Jupyter](https://jupyter.org/install)
 - [VS Code extension](https://code.visualstudio.com/docs/datascience/jupyter-notebooks)
-
 
 ## Contact
 
@@ -143,8 +136,8 @@ Feel free to reach out to me for any questions or request for collaboration to m
   - [X] Sort
   - [X] Form to Mark Failure
   - [ ] Docker?
-  - [x] Dashboard
+  - [X] Dashboard
 - [ ] Try RUL Approach
 - [ ] Evaluate RUL
-- [ ] Finish Off Paper
-- [ ] Finish Log Book
+- [X] Finish Off Paper
+- [X] Finish Log Book
