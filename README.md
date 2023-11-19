@@ -44,7 +44,18 @@ To get started with the research paper repository, follow these steps:
   python start.py
 ```
 
-Now you can explore the research paper repository and, if interested, run the API demo by launching both services in separate terminals.
+`start.py` will launch both microservices, the port that the services are running on will be displayed on the terminal allowing you to launch and interact with these
+
+### Directory Structure
+
+* `App` Contains the code for the Model deployment and Admin app
+* `Data` Contains raw and processed data (raw data is in a file `dataset_train.csv`)
+* `Data Cleaning` Contains code used to create the optimized versions of dataset and EDA
+* `ML` Contains implementation and implementation and testing of the ML models
+* `ML_Testingv2` Reimplementation of the LSTM Model
+* `Model` Weights for the trained model and Standard scaler
+* `NeuralNet_ft` Steps taken to optimize the Neural Network
+* `runAdmin` and `runModel` batch sripts to start the app indiviually or you can use `start.py` to run them all together
 
 ## Prerequisites
 
