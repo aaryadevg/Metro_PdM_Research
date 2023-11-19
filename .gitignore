@@ -107,3 +107,6 @@ Data/*
 */AdminApp/Scripts
 */AdminApp/pyvenv.cfg
 */tb_logs/*
+
+# Ignore the research paper drafts from this repo
+/Research
